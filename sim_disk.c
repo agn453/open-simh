@@ -112,11 +112,11 @@ struct simh_disk_footer {
 
 /* OS Independent Disk Virtual Disk (VHD) I/O support */
 
-#if (defined (VMS) && !(defined (__ALPHA) || defined (__ia64)))
+#if (defined (VMS) && !(defined (__ALPHA) || defined (__ia64) || defined (__x86_64)))
 #define DONT_DO_VHD_SUPPORT  /* VAX/VMS compilers don't have 64 bit integers */
 #endif
 
-#if defined(_WIN32) || defined (__ALPHA) || defined (__ia64) || defined (VMS)
+#if defined(_WIN32) || defined (__ALPHA) || defined (__ia64) || defined (__x86_64) || defined (VMS)
 #ifndef __BYTE_ORDER__
 #define __BYTE_ORDER__ __ORDER_LITTLE_ENDIAN__
 #endif
@@ -4598,7 +4598,7 @@ return SCPE_NOFNC;
 
 /* OS Independent Disk Virtual Disk (VHD) I/O support */
 
-#if (defined (VMS) && !(defined (__ALPHA) || defined (__ia64)))
+#if (defined (VMS) && !(defined (__ALPHA) || defined (__ia64) || defined (__x86_64)))
 #define DONT_DO_VHD_SUPPORT  /* VAX/VMS compilers don't have 64 bit integers */
 #endif
 
@@ -4665,7 +4665,7 @@ static t_stat sim_vhd_disk_wrsect (UNIT *uptr, t_lba lba, uint8 *buf, t_seccnt *
 return SCPE_IOERR;
 }
 
-static t_stat sim_vhd_disk_set_dtype (FILE *f, const char *dtype)
+static t_stat sim_vhd_disk_set_dtype (FILE *f, const char *dtype, uint32 SectorSize, uint32 xfer_element_size);
 {
 return SCPE_NOFNC;
 }
@@ -5032,7 +5032,7 @@ while (size--)
 return ~sum;
 }
 
-#if defined(_WIN32) || defined (__ALPHA) || defined (__ia64) || defined (VMS)
+#if defined(_WIN32) || defined (__ALPHA) || defined (__ia64) || defined (__x86_64) || defined (VMS)
 #ifndef __BYTE_ORDER__
 #define __BYTE_ORDER__ __ORDER_LITTLE_ENDIAN__
 #endif

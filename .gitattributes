@@ -12,5 +12,8 @@
 *.vhd binary
 *.crd binary
 *.dck binary
+*.c text eol=crlf linguist-language=C
+*.h text eol=crlf linguist-language=C
+*.mms text eol=crlf
 sim_rev.h export-subst
 
